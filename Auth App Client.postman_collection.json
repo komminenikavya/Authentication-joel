@@ -1,0 +1,3329 @@
+{
+	"info": {
+		"_postman_id": "e3bbcbd2-08aa-477d-9696-1f2a563a89c9",
+		"name": "Auth App Client",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2623891"
+	},
+	"item": [
+		{
+			"name": "Sign-up",
+			"item": [
+				{
+					"name": "Verify Employee",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var secondEmail = jsonData.secondEmail;\r",
+									"pm.collectionVariables.set(\"secondEmail\", secondEmail);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"employeeData\" : {\r\n        \"firstName\": \"{{firstName}}\",\r\n        \"lastName\": \"{{lastName}}\",\r\n        \"birthDate\": \"{{birthdate}}\",\r\n        \"employeeId\": \"{{employeeId}}\",\r\n        \"legalEntityId\": \"{{legalEntityID}}\"\r\n    },\r\n    \"appCode\": \"ppa\"\r\n}"
+						},
+						"url": {
+							"raw": "{{appUrl}}/stateful/sign-up/employee-data",
+							"host": [
+								"{{appUrl}}"
+							],
+							"path": [
+								"stateful",
+								"sign-up",
+								"employee-data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Email Challenge",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var userId = jsonData.userId;\r",
+									"var emailFactorId = jsonData.id;\r",
+									"pm.collectionVariables.set(\"oktaUserId\", userId);\r",
+									"pm.collectionVariables.set(\"emailFactorId\", emailFactorId);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{appUrl}}/stateful/sign-up/send-email-challenge",
+							"host": [
+								"{{appUrl}}"
+							],
+							"path": [
+								"stateful",
+								"sign-up",
+								"send-email-challenge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Email Challenge",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"otp\": \"219084\"\r\n}"
+						},
+						"url": {
+							"raw": "{{appUrl}}/stateful/sign-up/verify-challenge",
+							"host": [
+								"{{appUrl}}"
+							],
+							"path": [
+								"stateful",
+								"sign-up",
+								"verify-challenge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Password",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{appUrl}}/stateful/sign-up/set-password",
+							"host": [
+								"{{appUrl}}"
+							],
+							"path": [
+								"stateful",
+								"sign-up",
+								"set-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Phone Number",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phoneNumber\": \"{{phoneNumber}}\",\r\n    \"verificationMethod\": \"sms\"\r\n}"
+						},
+						"url": {
+							"raw": "{{appUrl}}/stateful/sign-up/register-phone-number",
+							"host": [
+								"{{appUrl}}"
+							],
+							"path": [
+								"stateful",
+								"sign-up",
+								"register-phone-number"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Phone Number Challenge",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"otp\": \"105116\"\r\n}"
+						},
+						"url": {
+							"raw": "{{appUrl}}/stateful/sign-up/activate-factor",
+							"host": [
+								"{{appUrl}}"
+							],
+							"path": [
+								"stateful",
+								"sign-up",
+								"activate-factor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Preferred Channel",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"preferredChannel\": \"{{preferredChannel}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{appUrl}}/stateful/sign-up/set-preferred-channel",
+							"host": [
+								"{{appUrl}}"
+							],
+							"path": [
+								"stateful",
+								"sign-up",
+								"set-preferred-channel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sign-in",
+			"item": [
+				{
+					"name": "Primary Authentication",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var stateToken = jsonData.token;\r",
+									"pm.collectionVariables.set(\"stateToken\", stateToken);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"{{email}}\",\r\n    \"password\": \"{{password}}\",\r\n    \"legalEntityId\": \"{{legalEntityID}}\",\r\n    \"appCode\" : \"ppa\"\r\n}"
+						},
+						"url": {
+							"raw": "{{appUrl}}/stateful/sign-in/1",
+							"host": [
+								"{{appUrl}}"
+							],
+							"path": [
+								"stateful",
+								"sign-in",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Secondary Authentication",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var sessionId = jsonData.sessionID;\r",
+									"pm.collectionVariables.set(\"sessionId\", sessionId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \r\n    \"otp\": \"209970\",\r\n    \"token\": \"{{stateToken}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{appUrl}}/stateful/sign-in/2",
+							"host": [
+								"{{appUrl}}"
+							],
+							"path": [
+								"stateful",
+								"sign-in",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send OTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var sessionId = jsonData.sessionID;\r",
+									"pm.collectionVariables.set(\"sessionId\", sessionId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \r\n    \"channel\": \"sms\",\r\n    \"token\": \"{{stateToken}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{appUrl}}/stateful/sign-in/send-otp",
+							"host": [
+								"{{appUrl}}"
+							],
+							"path": [
+								"stateful",
+								"sign-in",
+								"send-otp"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lifecycle Mgmt",
+			"item": [
+				{
+					"name": "Selfcare",
+					"item": [
+						{
+							"name": "Retrieve Login",
+							"item": [
+								{
+									"name": "Send Challenge",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"employeeData\" : {\r\n        \"firstName\": \"{{firstName}}\",\r\n        \"lastName\": \"{{lastName}}\",\r\n        \"birthDate\": \"22-12-75\",\r\n        \"employeeId\": \"{{employeeId}}\",\r\n        \"legalEntityId\": \"{{externalClientId}}:{{thirdPartyId}}\"\r\n    },\r\n    \"appCode\": \"ppa\"\r\n}"
+										},
+										"url": {
+											"raw": "{{appUrl}}/stateful/user-mgmt/retrieve-id/1",
+											"host": [
+												"{{appUrl}}"
+											],
+											"path": [
+												"stateful",
+												"user-mgmt",
+												"retrieve-id",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Verify Challenge",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{    \r\n    \"otp\": \"691760\"\r\n}"
+										},
+										"url": {
+											"raw": "{{appUrl}}/stateful/user-mgmt/retrieve-id/2",
+											"host": [
+												"{{appUrl}}"
+											],
+											"path": [
+												"stateful",
+												"user-mgmt",
+												"retrieve-id",
+												"2"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Change Password",
+							"item": [
+								{
+									"name": "Send Challenge",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"{{email}}\",\r\n    \"reason\": \"password\"\r\n}"
+										},
+										"url": {
+											"raw": "{{appUrl}}/stateful/user-mgmt/send-challenge",
+											"host": [
+												"{{appUrl}}"
+											],
+											"path": [
+												"stateful",
+												"user-mgmt",
+												"send-challenge"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send Challenge Ex",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"jojo@mailinator.com\",\r\n    \"channel\": \"email\",\r\n    \"reason\": \"password\"\r\n}"
+										},
+										"url": {
+											"raw": "{{appUrl}}/stateful/user-mgmt/send-challenge-ex",
+											"host": [
+												"{{appUrl}}"
+											],
+											"path": [
+												"stateful",
+												"user-mgmt",
+												"send-challenge-ex"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Verify Challenge",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{    \r\n    \"otp\": \"725415\"\r\n}"
+										},
+										"url": {
+											"raw": "{{appUrl}}/stateful/user-mgmt/verify-challenge",
+											"host": [
+												"{{appUrl}}"
+											],
+											"path": [
+												"stateful",
+												"user-mgmt",
+												"verify-challenge"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Set Password",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"password\": \"Xr99mh9!gt99\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{appUrl}}/stateful/user-mgmt/set-password",
+											"host": [
+												"{{appUrl}}"
+											],
+											"path": [
+												"stateful",
+												"user-mgmt",
+												"set-password"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Change MFA Contact - Phone Number",
+							"item": [
+								{
+									"name": "Request Change Phone Number",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"phoneNumber\": \"+15746215096\",\r\n    \"verificationMethod\": \"sms\"\r\n}"
+										},
+										"url": {
+											"raw": "{{appUrl}}/stateful/user-mgmt/change-phone-number/1",
+											"host": [
+												"{{appUrl}}"
+											],
+											"path": [
+												"stateful",
+												"user-mgmt",
+												"change-phone-number",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Confirm Change Phone Number",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"otp\": \"242780\"\r\n}"
+										},
+										"url": {
+											"raw": "{{appUrl}}/stateful/user-mgmt/change-phone-number/2",
+											"host": [
+												"{{appUrl}}"
+											],
+											"path": [
+												"stateful",
+												"user-mgmt",
+												"change-phone-number",
+												"2"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Change MFA Contact - Email",
+							"item": [
+								{
+									"name": "Request Change Email",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"{{email}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{appUrl}}/stateful/user-mgmt/change-email/1",
+											"host": [
+												"{{appUrl}}"
+											],
+											"path": [
+												"stateful",
+												"user-mgmt",
+												"change-email",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Confirm Change Email",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"otp\": \"706801\"\r\n}"
+										},
+										"url": {
+											"raw": "{{appUrl}}/stateful/user-mgmt/change-email/2",
+											"host": [
+												"{{appUrl}}"
+											],
+											"path": [
+												"stateful",
+												"user-mgmt",
+												"change-email",
+												"2"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Call Center",
+					"item": [
+						{
+							"name": "Unlock User",
+							"item": [
+								{
+									"name": "Submit Wrong Password",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"var stateToken = jsonData.token;\r",
+													"pm.collectionVariables.set(\"stateToken\", stateToken);\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"login\": \"{{email}}\",\r\n    \"password\": \"toto\",\r\n    \"legalEntityId\": \"{{externalClientId}}:{{thirdPartyId}}\",\r\n    \"appCode\" : \"{{appCode}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{appUrl}}/stateful/sign-in/1",
+											"host": [
+												"{{appUrl}}"
+											],
+											"path": [
+												"stateful",
+												"sign-in",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Unlock User",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"{{email}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{appUrl}}/stateful/user-mgmt/unlock-user",
+											"host": [
+												"{{appUrl}}"
+											],
+											"path": [
+												"stateful",
+												"user-mgmt",
+												"unlock-user"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Reset Username / Password",
+							"item": [
+								{
+									"name": "Delete User",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"joel.bloch@gmail.com\"\r\n}"
+										},
+										"url": {
+											"raw": "{{appUrl}}/stateful/user-mgmt/delete-user",
+											"host": [
+												"{{appUrl}}"
+											],
+											"path": [
+												"stateful",
+												"user-mgmt",
+												"delete-user"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get User Status",
+							"item": [
+								{
+									"name": "Get User Status",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												},
+												{
+													"key": "password",
+													"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"employeeId\": \"{{employeeId}}\",\r\n    \"legalEntityId\": \"{{legalEntityID}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{appUrl}}/stateful/user-mgmt/get-userstatus",
+											"host": [
+												"{{appUrl}}"
+											],
+											"path": [
+												"stateful",
+												"user-mgmt",
+												"get-userstatus"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "List Factors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{appUrl}}/stateful/user-mgmt/factors",
+							"host": [
+								"{{appUrl}}"
+							],
+							"path": [
+								"stateful",
+								"user-mgmt",
+								"factors"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Utils",
+			"item": [
+				{
+					"name": "Wynsure Direct API",
+					"item": [
+						{
+							"name": "Is Employee Provisioned",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var wynsurePersonid = jsonData.person.identifier.bUID;\r",
+											"pm.collectionVariables.set(\"wynsurePersonid\", wynsurePersonid);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "basic {{encodedWynsureCredentials}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{wynsureUrl}}/api/rest/employees/employeeid::{{employeeId}}|legalentity_additionalidkind::ppa|legalentity_additionalid::{{clientId}}",
+									"host": [
+										"{{wynsureUrl}}"
+									],
+									"path": [
+										"api",
+										"rest",
+										"employees",
+										"employeeid::{{employeeId}}|legalentity_additionalidkind::ppa|legalentity_additionalid::{{clientId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Is User Provisionned",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var wynsurePersonid = jsonData.person.identifier.bUID;\r",
+											"pm.collectionVariables.set(\"wynsurePersonid\", wynsurePersonid);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "basic {{encodedWynsureCredentials}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{wynsureUrl}}/api/rest/users/name::{{employeeId}}_{{legalEntityID}}",
+									"host": [
+										"{{wynsureUrl}}"
+									],
+									"path": [
+										"api",
+										"rest",
+										"users",
+										"name::{{employeeId}}_{{legalEntityID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Is User Provisionned - Selfcare Service",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var wynsurePersonid = jsonData.person.identifier.bUID;\r",
+											"pm.collectionVariables.set(\"wynsurePersonid\", wynsurePersonid);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "basic {{encodedWynsureCredentials}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://accept6-front.centralus.cloudapp.azure.com/selfcare/api/rest/users/name::{{employeeId}}_{{legalEntityID}}",
+									"protocol": "https",
+									"host": [
+										"accept6-front",
+										"centralus",
+										"cloudapp",
+										"azure",
+										"com"
+									],
+									"path": [
+										"selfcare",
+										"api",
+										"rest",
+										"users",
+										"name::{{employeeId}}_{{legalEntityID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Is Employee Provisioned Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"if(jsonData && jsonData.person && jsonData.person.identifier) {\r",
+											"    var wynsurePersonid = jsonData.person.identifier.bUID;\r",
+											"    pm.collectionVariables.set(\"wynsurePersonid\", wynsurePersonid);\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "basic {{encodedWynsureCredentials}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{wynsureUrl}}/api/rest/employees/employeeid::{{employeeId}}|legalentityidentifier_externalClientId::{{externalClientId}}|legalentityidentifier_thirdPartyId::{{thirdPartyId}}",
+									"host": [
+										"{{wynsureUrl}}"
+									],
+									"path": [
+										"api",
+										"rest",
+										"employees",
+										"employeeid::{{employeeId}}|legalentityidentifier_externalClientId::{{externalClientId}}|legalentityidentifier_thirdPartyId::{{thirdPartyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Is Employee Authorized to Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"if(jsonData && jsonData.person && jsonData.person.identifier) {\r",
+											"    var wynsurePersonid = jsonData.person.identifier.bUID;\r",
+											"    pm.collectionVariables.set(\"wynsurePersonid\", wynsurePersonid);\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "basic {{encodedWynsureCredentials}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{wynsureUrl}}/api/rest/employees/employeeid::{{employeeId}}|legalentity_externalclientid::{{externalClientId}}|legalentity_thirdpartyid::{{thirdPartyId}}/isauthorizedtologin",
+									"host": [
+										"{{wynsureUrl}}"
+									],
+									"path": [
+										"api",
+										"rest",
+										"employees",
+										"employeeid::{{employeeId}}|legalentity_externalclientid::{{externalClientId}}|legalentity_thirdpartyid::{{thirdPartyId}}",
+										"isauthorizedtologin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Legal Entity",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var wynsurePersonid = jsonData.person.identifier.bUID;\r",
+											"pm.collectionVariables.set(\"wynsurePersonid\", wynsurePersonid);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "basic {{encodedWynsureCredentials}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "REMOTE_USER",
+										"value": "Joel",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://accept6-front.centralus.cloudapp.azure.com/selfcare/api/rest/legalentities/externalClientId::{{externalClientId}}|thirdPartyId::{{thirdPartyId}}",
+									"protocol": "https",
+									"host": [
+										"accept6-front",
+										"centralus",
+										"cloudapp",
+										"azure",
+										"com"
+									],
+									"path": [
+										"selfcare",
+										"api",
+										"rest",
+										"legalentities",
+										"externalClientId::{{externalClientId}}|thirdPartyId::{{thirdPartyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Is Employee Allowed to Login",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Is User Allowed to Login",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Create Employee User",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "basic {{encodedWynsureCredentials}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"className\": \"aSPCB_ExternalApplicationUserData\",\r\n    \"loginEntity\": {\r\n      \"className\": \"aSPCB_ApplicationLogin\",\r\n      \"email\": \"{{email}}\",\r\n      \"accountVerified\": true,               \r\n      \"name\": \"{{email}}\",\r\n      \"fullName\": \"{{email}}\",\r\n      \"forbatch\": false,\r\n      \"isDisabled\": false     \r\n    },\r\n    \"actor\": {\r\n      \"bUID\": \"{{wynsurePersonid}}\"     \r\n    },\r\n    \"profiles\": [\r\n      {\r\n        \"className\": \"aSPCB_ProfileIdentifier\",\r\n        \"code\": \"SM\"\r\n      }\r\n    ]\r\n}"
+								},
+								"url": {
+									"raw": "{{wynsureUrl}}/api/rest/persons/{{wynsurePersonid}}/logins",
+									"host": [
+										"{{wynsureUrl}}"
+									],
+									"path": [
+										"api",
+										"rest",
+										"persons",
+										"{{wynsurePersonid}}",
+										"logins"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Employee User Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "basic {{encodedWynsureCredentials}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"className\": \"aSPCB_ExternalApplicationUserData\",\r\n    \"loginEntity\": {\r\n      \"className\": \"aSPCB_ApplicationLogin\",\r\n      \"email\": \"mfa_{{email}}\",\r\n      \"accountVerified\": true,\r\n      \"name\": \"mfa_{{email}}\",\r\n      \"fullName\": \"mfa_{{email}}\",\r\n      \"forbatch\": false,\r\n      \"isDisabled\": false     \r\n    },\r\n    \"actor\": {\r\n      \"bUID\": \"{{wynsurePersonid}}\"     \r\n    },\r\n    \"profiles\": [\r\n      {\r\n        \"className\": \"aSPCB_ProfileIdentifier\",\r\n        \"code\": \"SM\"\r\n      }\r\n    ]\r\n}"
+								},
+								"url": {
+									"raw": "{{wynsureUrl}}/api/rest/users/name::mfa_{{email}}",
+									"host": [
+										"{{wynsureUrl}}"
+									],
+									"path": [
+										"api",
+										"rest",
+										"users",
+										"name::mfa_{{email}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "basic {{encodedWynsureCredentials}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/ecmascript",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{wynsureUrl}}/api/rest/users/name::{{email}}",
+									"host": [
+										"{{wynsureUrl}}"
+									],
+									"path": [
+										"api",
+										"rest",
+										"users",
+										"name::{{email}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Person",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "basic {{encodedWynsureCredentials}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{wynsureUrl}}/api/rest/persons/318844252_55/employments",
+									"host": [
+										"{{wynsureUrl}}"
+									],
+									"path": [
+										"api",
+										"rest",
+										"persons",
+										"318844252_55",
+										"employments"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"let keys = pm.collectionVariables.get(\"wynsureUserLogin\") + \":\" + pm.collectionVariables.get(\"wynsureUserPassword\");",
+									"",
+									"let encodedKeys = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(keys));",
+									"",
+									"pm.collectionVariables.set(\"encodedWynsureCredentials\", encodedKeys);"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Inline Hooks",
+					"item": [
+						{
+							"name": "MERCER Inline Hook PPE",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "toto",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"eventId\": \"nV6HzFodSxK-flEboj3DeQ\",\r\n    \"eventTime\": \"2023-01-25T09:40:09.000Z\",\r\n    \"eventType\": \"com.okta.saml.tokens.transform\",\r\n    \"eventTypeVersion\": \"1.0\",\r\n    \"contentType\": \"application/json\",\r\n    \"cloudEventVersion\": \"0.1\",\r\n    \"source\": \"https://mphasis-joel.okta.com/app/mphasis-joel_ppegul_1/exk3p0n7z57hUsIMA697/sso/saml\",\r\n    \"data\": {\r\n        \"context\": {\r\n            \"request\": {\r\n                \"id\": \"Y9D4-fiu28XWWjIQRfuL8gAADfo\",\r\n                \"method\": \"POST\",\r\n                \"url\": {\r\n                    \"value\": \"https://mphasis-joel.okta.com/app/mphasis-joel_ppegul_1/exk3p0n7z57hUsIMA697/sso/saml\"\r\n                },\r\n                \"ipAddress\": \"78.192.231.129\"\r\n            },\r\n            \"protocol\": {\r\n                \"type\": \"SAML2.0\",\r\n                \"issuer\": {\r\n                    \"id\": \"0oa3p0n7z6iOLbkGi697\",\r\n                    \"name\": \"PPE - GUL\",\r\n                    \"uri\": \"http://www.okta.com/PPE\"\r\n                },\r\n                \"request\": {\r\n                    \"id\": \"123dummyAuthnRequestId456\",\r\n                    \"version\": \"2.0\",\r\n                    \"issuerInstant\": \"2023-01-25T09:40:09.643Z\",\r\n                    \"destination\": \"https://mphasis-joel.okta.com/app/mphasis-joel_ppegul_1/exk3p0n7z57hUsIMA697/sso/saml\",\r\n                    \"providerName\": \"Dummy Provider Name\",\r\n                    \"forceAuthn\": false,\r\n                    \"passive\": false,\r\n                    \"issuer\": \"http://localhost:3005/login/callback\",\r\n                    \"assertionConsumerServiceURL\": \"http://localhost:3005/login/callback\",\r\n                    \"protocolBinding\": \"urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST\",\r\n                    \"nameIdPolicy\": {\r\n                        \"format\": \"urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified\",\r\n                        \"allowCreate\": true\r\n                    },\r\n                    \"requestedAuthnContext\": {\r\n                        \"comparison\": \"exact\",\r\n                        \"authnContextClassRefs\": [\r\n                            \"urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport\"\r\n                        ]\r\n                    }\r\n                }\r\n            },\r\n            \"session\": {\r\n                \"id\": \"123dummySessionId456\",\r\n                \"userId\": \"00u3x2qyvvaLMPNRf697\",\r\n                \"login\": \"sso_robert.smith@wynsureformercer.onmicrosoft.com\",\r\n                \"createdAt\": \"2023-01-25T09:40:09.659Z\",\r\n                \"expiresAt\": \"2023-01-25T09:40:09.659Z\",\r\n                \"status\": \"ACTIVE\",\r\n                \"lastPasswordVerification\": \"2023-01-25T09:40:09.659Z\",\r\n                \"amr\": [],\r\n                \"idp\": {},\r\n                \"mfaActive\": false\r\n            },\r\n            \"user\": {\r\n                \"id\": \"00u3x2qyvvaLMPNRf697\",\r\n                \"passwordChanged\": \"2023-01-23T12:04:50.000Z\",\r\n                \"profile\": {\r\n                    \"login\": \"sso_robert.smith@wynsureformercer.onmicrosoft.com\",\r\n                    \"firstName\": \"Robert\",\r\n                    \"lastName\": \"Smith\",\r\n                    \"locale\": \"en\",\r\n                    \"timeZone\": \"America/Los_Angeles\"\r\n                },\r\n                \"_links\": {\r\n                    \"groups\": {\r\n                        \"href\": \"https://mphasis-joel.okta.com/api/v1/users/00u3x2qyvvaLMPNRf697/groups\"\r\n                    },\r\n                    \"factors\": {\r\n                        \"href\": \"https://mphasis-joel.okta.com/api/v1/users/00u3x2qyvvaLMPNRf697/factors\"\r\n                    }\r\n                }\r\n            }\r\n        },\r\n        \"assertion\": {\r\n            \"subject\": {\r\n                \"nameId\": \"sso_robert.smith@wynsureformercer.onmicrosoft.com\",\r\n                \"nameFormat\": \"urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified\",\r\n                \"confirmation\": {\r\n                    \"method\": \"urn:oasis:names:tc:SAML:2.0:cm:bearer\",\r\n                    \"data\": {\r\n                        \"inResponseTo\": \"123dummyAuthnRequestId456\",\r\n                        \"recipient\": \"http://localhost:3005/login/callback\"\r\n                    }\r\n                }\r\n            },\r\n            \"authentication\": {\r\n                \"sessionIndex\": \"id1674639609642.1991208522\",\r\n                \"authnContext\": {\r\n                    \"authnContextClassRef\": \"urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport\"\r\n                }\r\n            },\r\n            \"conditions\": {\r\n                \"audienceRestriction\": [\r\n                    \"ppe-saml\"\r\n                ]\r\n            },\r\n            \"claims\": {\r\n                \"firstName\": {\r\n                    \"attributes\": {\r\n                        \"NameFormat\": \"urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified\"\r\n                    },\r\n                    \"attributeValues\": [\r\n                        {\r\n                            \"attributes\": {\r\n                                \"xsi:type\": \"xs:string\"\r\n                            },\r\n                            \"value\": \"Robert\"\r\n                        }\r\n                    ]\r\n                },\r\n                \"lastName\": {\r\n                    \"attributes\": {\r\n                        \"NameFormat\": \"urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified\"\r\n                    },\r\n                    \"attributeValues\": [\r\n                        {\r\n                            \"attributes\": {\r\n                                \"xsi:type\": \"xs:string\"\r\n                            },\r\n                            \"value\": \"Smith\"\r\n                        }\r\n                    ]\r\n                },\r\n                \"email\": {\r\n                    \"attributes\": {\r\n                        \"NameFormat\": \"urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified\"\r\n                    },\r\n                    \"attributeValues\": [\r\n                        {\r\n                            \"attributes\": {\r\n                                \"xsi:type\": \"xs:string\"\r\n                            },\r\n                            \"value\": \"robert.smith@wynsureformercer.onmicrosoft.com\"\r\n                        }\r\n                    ]\r\n                }\r\n            },\r\n            \"lifetime\": {\r\n                \"expiration\": 300\r\n            }\r\n        }\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "https://uat.mercervb.com/macnonsso/inlineHooks/SAMLHook",
+									"protocol": "https",
+									"host": [
+										"uat",
+										"mercervb",
+										"com"
+									],
+									"path": [
+										"macnonsso",
+										"inlineHooks",
+										"SAMLHook"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Dev Inline Hook PPE",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"eventId\": \"nV6HzFodSxK-flEboj3DeQ\",\r\n    \"eventTime\": \"2023-01-25T09:40:09.000Z\",\r\n    \"eventType\": \"com.okta.saml.tokens.transform\",\r\n    \"eventTypeVersion\": \"1.0\",\r\n    \"contentType\": \"application/json\",\r\n    \"cloudEventVersion\": \"0.1\",\r\n    \"source\": \"https://mphasis-joel.okta.com/app/mphasis-joel_ppegul_1/exk3p0n7z57hUsIMA697/sso/saml\",\r\n    \"data\": {\r\n        \"context\": {\r\n            \"request\": {\r\n                \"id\": \"Y9D4-fiu28XWWjIQRfuL8gAADfo\",\r\n                \"method\": \"POST\",\r\n                \"url\": {\r\n                    \"value\": \"https://mphasis-joel.okta.com/app/mphasis-joel_ppegul_1/exk3p0n7z57hUsIMA697/sso/saml\"\r\n                },\r\n                \"ipAddress\": \"78.192.231.129\"\r\n            },\r\n            \"protocol\": {\r\n                \"type\": \"SAML2.0\",\r\n                \"issuer\": {\r\n                    \"id\": \"0oa3p0n7z6iOLbkGi697\",\r\n                    \"name\": \"PPE - GUL\",\r\n                    \"uri\": \"http://www.okta.com/PPE\"\r\n                },\r\n                \"request\": {\r\n                    \"id\": \"123dummyAuthnRequestId456\",\r\n                    \"version\": \"2.0\",\r\n                    \"issuerInstant\": \"2023-01-25T09:40:09.643Z\",\r\n                    \"destination\": \"https://mphasis-joel.okta.com/app/mphasis-joel_ppegul_1/exk3p0n7z57hUsIMA697/sso/saml\",\r\n                    \"providerName\": \"Dummy Provider Name\",\r\n                    \"forceAuthn\": false,\r\n                    \"passive\": false,\r\n                    \"issuer\": \"http://localhost:3005/login/callback\",\r\n                    \"assertionConsumerServiceURL\": \"http://localhost:3005/login/callback\",\r\n                    \"protocolBinding\": \"urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST\",\r\n                    \"nameIdPolicy\": {\r\n                        \"format\": \"urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified\",\r\n                        \"allowCreate\": true\r\n                    },\r\n                    \"requestedAuthnContext\": {\r\n                        \"comparison\": \"exact\",\r\n                        \"authnContextClassRefs\": [\r\n                            \"urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport\"\r\n                        ]\r\n                    }\r\n                }\r\n            },\r\n            \"session\": {\r\n                \"id\": \"123dummySessionId456\",\r\n                \"userId\": \"00u3x2qyvvaLMPNRf697\",\r\n                \"login\": \"mfa_joel.bloch@gmail.com\",\r\n                \"createdAt\": \"2023-01-25T09:40:09.659Z\",\r\n                \"expiresAt\": \"2023-01-25T09:40:09.659Z\",\r\n                \"status\": \"ACTIVE\",\r\n                \"lastPasswordVerification\": \"2023-01-25T09:40:09.659Z\",\r\n                \"amr\": [],\r\n                \"idp\": {},\r\n                \"mfaActive\": false\r\n            },\r\n            \"user\": {\r\n                \"id\": \"00u3x2qyvvaLMPNRf697\",\r\n                \"passwordChanged\": \"2023-01-23T12:04:50.000Z\",\r\n                \"profile\": {\r\n                    \"login\": \"mfa_joel.bloch@gmail.com\",\r\n                    \"firstName\": \"Joseph\",\r\n                    \"lastName\": \"Abdo\",\r\n                    \"locale\": \"en\",\r\n                    \"timeZone\": \"America/Los_Angeles\"\r\n                },\r\n                \"_links\": {\r\n                    \"groups\": {\r\n                        \"href\": \"https://mphasis-joel.okta.com/api/v1/users/00u3x2qyvvaLMPNRf697/groups\"\r\n                    },\r\n                    \"factors\": {\r\n                        \"href\": \"https://mphasis-joel.okta.com/api/v1/users/00u3x2qyvvaLMPNRf697/factors\"\r\n                    }\r\n                }\r\n            }\r\n        },\r\n        \"assertion\": {\r\n            \"subject\": {\r\n                \"nameId\": \"mfa_joel.bloch@gmail.com\",\r\n                \"nameFormat\": \"urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified\",\r\n                \"confirmation\": {\r\n                    \"method\": \"urn:oasis:names:tc:SAML:2.0:cm:bearer\",\r\n                    \"data\": {\r\n                        \"inResponseTo\": \"123dummyAuthnRequestId456\",\r\n                        \"recipient\": \"http://localhost:3005/login/callback\"\r\n                    }\r\n                }\r\n            },\r\n            \"authentication\": {\r\n                \"sessionIndex\": \"id1674639609642.1991208522\",\r\n                \"authnContext\": {\r\n                    \"authnContextClassRef\": \"urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport\"\r\n                }\r\n            },\r\n            \"conditions\": {\r\n                \"audienceRestriction\": [\r\n                    \"ppe-saml\"\r\n                ]\r\n            },\r\n            \"claims\": {\r\n                \"firstName\": {\r\n                    \"attributes\": {\r\n                        \"NameFormat\": \"urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified\"\r\n                    },\r\n                    \"attributeValues\": [\r\n                        {\r\n                            \"attributes\": {\r\n                                \"xsi:type\": \"xs:string\"\r\n                            },\r\n                            \"value\": \"Joseph\"\r\n                        }\r\n                    ]\r\n                },\r\n                \"lastName\": {\r\n                    \"attributes\": {\r\n                        \"NameFormat\": \"urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified\"\r\n                    },\r\n                    \"attributeValues\": [\r\n                        {\r\n                            \"attributes\": {\r\n                                \"xsi:type\": \"xs:string\"\r\n                            },\r\n                            \"value\": \"Abdo\"\r\n                        }\r\n                    ]\r\n                },\r\n                \"email\": {\r\n                    \"attributes\": {\r\n                        \"NameFormat\": \"urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified\"\r\n                    },\r\n                    \"attributeValues\": [\r\n                        {\r\n                            \"attributes\": {\r\n                                \"xsi:type\": \"xs:string\"\r\n                            },\r\n                            \"value\": \"joel.bloch@gmail.com\"\r\n                        }\r\n                    ]\r\n                }\r\n            },\r\n            \"lifetime\": {\r\n                \"expiration\": 300\r\n            }\r\n        }\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/stateless/inlineHooks/ppe",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"stateless",
+										"inlineHooks",
+										"ppe"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Okta Direct API",
+					"item": [
+						{
+							"name": "Okta Session Management",
+							"item": [
+								{
+									"name": "Primary Authentication",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"var stateToken = jsonData.stateToken;\r",
+													"var oktaUserId = jsonData?._embedded?.user?.id\r",
+													"if(stateToken) {\r",
+													"    pm.collectionVariables.set(\"stateToken\", stateToken);\r",
+													"   \r",
+													"}\r",
+													"var sessionToken = jsonData.sessionToken\r",
+													"if(sessionToken) {\r",
+													"    pm.collectionVariables.set(\"sessionToken\", sessionToken);\r",
+													"}\r",
+													"pm.collectionVariables.set(\"oktaUserId\", oktaUserId);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"username\": \"{{login}}\",\n  \"password\": \"{{password}}\",\n  \"options\": {\n    \"multiOptionalFactorEnroll\": true,\n    \"warnBeforePasswordExpired\": true\n  },\n  \"context\": {\n    \"deviceToken\": \"26q43Ak9Eh04p7H6Nnx0m69JqYOrfVBY\"\n  }\n}"
+										},
+										"url": {
+											"raw": "https://{{oktaDomain}}/api/v1/authn",
+											"protocol": "https",
+											"host": [
+												"{{oktaDomain}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"authn"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetEmailFactor",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"var emailFactorId = jsonData[0].id;\r",
+													"if(emailFactorId) {\r",
+													"    pm.collectionVariables.set(\"emailFactorId\", emailFactorId);\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "SSWS {{apikey}}"
+											}
+										],
+										"url": {
+											"raw": "https://{{oktaDomain}}/api/v1/users/{{oktaUserId}}/factors",
+											"protocol": "https",
+											"host": [
+												"{{oktaDomain}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"users",
+												"{{oktaUserId}}",
+												"factors"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "MFA Authentication",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"stateToken\": \"{{stateToken}}\",\r\n    \"context\": {\r\n    \"deviceToken\": \"26q43Ak9Eh04p7H6Nnx0m69JqYOrfVBY\"\r\n  }\r\n}"
+										},
+										"url": {
+											"raw": "https://{{oktaDomain}}/api/v1/authn/factors/{{emailFactorId}}/verify",
+											"protocol": "https",
+											"host": [
+												"{{oktaDomain}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"authn",
+												"factors",
+												"{{emailFactorId}}",
+												"verify"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Verify MFA",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json()\r",
+													"var sessionToken = jsonData.sessionToken\r",
+													"if(sessionToken) {\r",
+													"    pm.collectionVariables.set(\"sessionToken\", sessionToken)\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"stateToken\": \"{{stateToken}}\",\r\n    \"passCode\": \"947487\",\r\n    \"context\": {\r\n    \"deviceToken\": \"26q43Ak9Eh04p7H6Nnx0m69JqYOrfVBY\"\r\n  }\r\n}"
+										},
+										"url": {
+											"raw": "https://{{oktaDomain}}/api/v1/authn/factors/{{emailFactorId}}/verify",
+											"protocol": "https",
+											"host": [
+												"{{oktaDomain}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"authn",
+												"factors",
+												"{{emailFactorId}}",
+												"verify"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Session with Session Token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"var sessionId = jsonData.id;\r",
+													"pm.collectionVariables.set(\"sessionId\", sessionId);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "SSWS {{apikey}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"sessionToken\": \"{{sessionToken}}\"\n}"
+										},
+										"url": {
+											"raw": "https://{{oktaDomain}}/api/v1/sessions",
+											"protocol": "https",
+											"host": [
+												"{{oktaDomain}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"sessions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "MFA Authentication with OTP",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"stateToken\": \"{{stateToken}}\",\r\n    \"passCode\": \"244905\"\r\n}"
+										},
+										"url": {
+											"raw": "https://mphasis-joel.okta.com/api/v1/authn/factors/emf4mdxxi968oVqSs697/verify",
+											"protocol": "https",
+											"host": [
+												"mphasis-joel",
+												"okta",
+												"com"
+											],
+											"path": [
+												"api",
+												"v1",
+												"authn",
+												"factors",
+												"emf4mdxxi968oVqSs697",
+												"verify"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Current Session",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "SSWS {{apikey}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://{{oktaDomain}}/api/v1/sessions/me",
+											"protocol": "https",
+											"host": [
+												"{{oktaDomain}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"sessions",
+												"me"
+											]
+										},
+										"description": "Get session information for the current user. Use this method in a browser based application to determine if the user is logged in.\n\n> The session `id` returned from `/sessions/me` is an `externalId` and can only be used with the **Refresh Session** endpoint."
+									},
+									"response": []
+								},
+								{
+									"name": "Get Session",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "SSWS {{apikey}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://{{oktaDomain}}/api/v1/sessions/{{sessionId}}",
+											"protocol": "https",
+											"host": [
+												"{{oktaDomain}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"sessions",
+												"{{sessionId}}"
+											]
+										},
+										"description": "Get session information for the current user. Use this method in a browser based application to determine if the user is logged in.\n\n> The session `id` returned from `/sessions/me` is an `externalId` and can only be used with the **Refresh Session** endpoint."
+									},
+									"response": []
+								},
+								{
+									"name": "Clear Session",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "SSWS {{apikey}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{oktaDomain}}/api/v1/sessions/{{sessionId}}",
+											"protocol": "https",
+											"host": [
+												"{{oktaDomain}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"sessions",
+												"{{sessionId}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get User from Login",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var encodedLogin = encodeURIComponent(pm.collectionVariables.get(\"login\"));\r",
+											"pm.collectionVariables.set(\"encodedEmail\", encodedLogin);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "SSWS {{apikey}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{oktaDomain}}/api/v1/users/{{encodedEmail}}",
+									"protocol": "https",
+									"host": [
+										"{{oktaDomain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{encodedEmail}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var oktaUserId = jsonData.id;\r",
+											"pm.collectionVariables.set(\"oktaUserId\", oktaUserId);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SSWS {{apikey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"profile\": {\n        \"firstName\": \"{{firstName}}\",\n        \"lastName\": \"{{lastName}}\",\n        \"email\": \"{{email}}\",\n        \"login\": \"{{email}}\"\n    },\n    \"credentials\": {\n        \"password\": {\n            \"value\": \"{{password}}\"\n        }\n    },\n    \"groupIds\": [\"00g39j4zk4tV0Ja7p697\"]\n\n}"
+								},
+								"url": {
+									"raw": "https://{{oktaDomain}}/api/v1/users?activate=true",
+									"protocol": "https",
+									"host": [
+										"{{oktaDomain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users"
+									],
+									"query": [
+										{
+											"key": "activate",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register Phone Number",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SSWS {{apikey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n     \"factorType\": \"sms\",\n         \"provider\": \"okta\",\n         \"profile\": {\n            \"phoneNumber\": \"{{phoneNumber}}\"\n         }\n}"
+								},
+								"url": {
+									"raw": "https://{{oktaDomain}}/api/v1/users/{{oktaUserId}}/factors?activate=true",
+									"protocol": "https",
+									"host": [
+										"{{oktaDomain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{oktaUserId}}",
+										"factors"
+									],
+									"query": [
+										{
+											"key": "activate",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unlock User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SSWS {{apikey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n}"
+								},
+								"url": {
+									"raw": "https://{{oktaDomain}}/api/v1/users/00u48jrk0dLdqXPEA697/lifecycle/unlock",
+									"protocol": "https",
+									"host": [
+										"{{oktaDomain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"00u48jrk0dLdqXPEA697",
+										"lifecycle",
+										"unlock"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Enroll Email Factor",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "SSWS {{apikey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"factorType\": \"email\",\r\n    \"provider\": \"OKTA\",\r\n    \"profile\": {\r\n      \"email\": \"{{email}}\"\r\n      }\r\n}"
+								},
+								"url": {
+									"raw": "https://{{oktaDomain}}/api/v1/users/{{oktaUserId}}/factors?tokenLifetimeSeconds=600&activate=true",
+									"protocol": "https",
+									"host": [
+										"{{oktaDomain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{oktaUserId}}",
+										"factors"
+									],
+									"query": [
+										{
+											"key": "tokenLifetimeSeconds",
+											"value": "600"
+										},
+										{
+											"key": "activate",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Factors",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SSWS {{apikey}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{oktaDomain}}/api/v1/users/{{oktaUserId}}/factors",
+									"protocol": "https",
+									"host": [
+										"{{oktaDomain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{oktaUserId}}",
+										"factors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Password",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SSWS {{apikey}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"credentials\": {\n    \"password\" : { \"value\": \"{{password}}\" }\n  }\n}"
+								},
+								"url": {
+									"raw": "https://{{oktaDomain}}/api/v1/users/{{oktaUserId}}",
+									"protocol": "https",
+									"host": [
+										"{{oktaDomain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{oktaUserId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Preferred Factor",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SSWS {{apikey}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"profile\": {\n        \"firstName\": \"{{firstName}}\",\n        \"lastName\": \"{{lastName}}\",\n        \"email\": \"{{email}}\",\n        \"secondEmail\": \"{{email}}\",\n        \"login\": \"{{email}}\",\n        \"preferred_channel\": \"sms\"\n    }\n}"
+								},
+								"url": {
+									"raw": "https://{{oktaDomain}}//api/v1/users/{{oktaUserId}}",
+									"protocol": "https",
+									"host": [
+										"{{oktaDomain}}"
+									],
+									"path": [
+										"",
+										"api",
+										"v1",
+										"users",
+										"{{oktaUserId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Primary Authentication",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var stateToken = jsonData.stateToken;\r",
+											"pm.collectionVariables.set(\"stateToken\", stateToken);\r",
+											"pm.collectionVariables.set(\"factorId\", jsonData._embedded.factors[0].id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"options\": {\n    \"multiOptionalFactorEnroll\": true,\n    \"warnBeforePasswordExpired\": true\n  }  \n}"
+								},
+								"url": {
+									"raw": "https://{{oktaDomain}}/api/v1/authn",
+									"protocol": "https",
+									"host": [
+										"{{oktaDomain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"authn"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send OTP by Email",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"stateToken\": \"{{stateToken}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{oktaDomain}}/api/v1/authn/factors/{{factorId}}/verify",
+									"protocol": "https",
+									"host": [
+										"{{oktaDomain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"authn",
+										"factors",
+										"{{factorId}}",
+										"verify"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Secondary Authentication",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var sessionToken = jsonData.sessionToken;\r",
+											"pm.collectionVariables.set(\"sessiontoken\", sessionToken);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"stateToken\": \"{{stateToken}}\",\n  \"passCode\": \"772291\"\n}"
+								},
+								"url": {
+									"raw": "https://{{oktaDomain}}/api/v1/authn/factors/{{factorId}}/verify",
+									"protocol": "https",
+									"host": [
+										"{{oktaDomain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"authn",
+										"factors",
+										"{{factorId}}",
+										"verify"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Session from Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var sessionId = jsonData.id;\r",
+											"pm.collectionVariables.set(\"sessionId\", sessionId);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "SSWS {{apikey}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"sessionToken\": \"{{sessionToken}}\"\r\n}"
+								},
+								"url": {
+									"raw": "https://{{oktaDomain}}/api/v1/sessions?additionalFields=cookieToken",
+									"protocol": "https",
+									"host": [
+										"{{oktaDomain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"sessions"
+									],
+									"query": [
+										{
+											"key": "additionalFields",
+											"value": "cookieToken"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Validate Session",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "SSWS {{apikey}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{oktaDomain}}/api/v1/sessions/{{sessionId}}",
+									"protocol": "https",
+									"host": [
+										"{{oktaDomain}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"sessions",
+										"{{sessionId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Misc",
+					"item": [
+						{
+							"name": "Cipher",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var userId = jsonData.userId;\r",
+											"var emailFactorId = jsonData.id;\r",
+											"pm.collectionVariables.set(\"oktaUserId\", userId);\r",
+											"pm.collectionVariables.set(\"emailFactorId\", emailFactorId);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "user",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "538ed7c8-e321-4e01-863e-418558f7ddb0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"data\": \"{{apikey}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{appUrl}}/stateless/utils/cipher",
+									"host": [
+										"{{appUrl}}"
+									],
+									"path": [
+										"stateless",
+										"utils",
+										"cipher"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "appUrl",
+			"value": "https://uat.mercervb.com/macnonsso"
+		},
+		{
+			"key": "firstName",
+			"value": "Eric",
+			"type": "string"
+		},
+		{
+			"key": "lastName",
+			"value": "Amextesting",
+			"type": "string"
+		},
+		{
+			"key": "email",
+			"value": "joel.bloch@gmail.com",
+			"type": "string"
+		},
+		{
+			"key": "login",
+			"value": "mfa_joel.bloch@gmail.com",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "Nisreen55_",
+			"type": "string"
+		},
+		{
+			"key": "employeeId",
+			"value": "7418444",
+			"type": "string"
+		},
+		{
+			"key": "legalEntityID",
+			"value": "AECNYO:FO",
+			"type": "string"
+		},
+		{
+			"key": "birthdate",
+			"value": "1991-09-09",
+			"type": "string"
+		},
+		{
+			"key": "emailFactorId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "oktaUserId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "oktaDomain",
+			"value": "mphasis-joel.okta.com",
+			"type": "string"
+		},
+		{
+			"key": "apikey",
+			"value": "00FHZ31cOoyDdTCmoQDDHNsZPFBxN_eYBiBtgBzsCx",
+			"type": "string"
+		},
+		{
+			"key": "encodedEmail",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "preferredChannel",
+			"value": "email",
+			"type": "string"
+		},
+		{
+			"key": "phoneNumber",
+			"value": "+33638576670",
+			"type": "string"
+		},
+		{
+			"key": "secondEmail",
+			"value": ""
+		},
+		{
+			"key": "factorId",
+			"value": ""
+		},
+		{
+			"key": "wynsureUrl",
+			"value": "https://accept6-front.centralus.cloudapp.azure.com/restapi",
+			"type": "string"
+		},
+		{
+			"key": "wynsureUserLogin",
+			"value": "AuthApp",
+			"type": "string"
+		},
+		{
+			"key": "wynsureUserPassword",
+			"value": "azerty1234",
+			"type": "string"
+		},
+		{
+			"key": "encodedWynsureCredentials",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "sessionId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "wynsurePersonid",
+			"value": "318844252_55"
+		},
+		{
+			"key": "appCode",
+			"value": "ppa",
+			"type": "string"
+		},
+		{
+			"key": "sessiontoken",
+			"value": ""
+		},
+		{
+			"key": "stateToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "sessionToken",
+			"value": ""
+		}
+	]
+}
